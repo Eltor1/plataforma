@@ -1,3 +1,44 @@
+<?php
+session_start();
+include('db.php');
+
+// Verifica se o usuário está logado
+if (!isset($_SESSION['user_id'])) {
+    header("Location: index.php");
+    exit();
+}
+
+$usernome_completo = $_SESSION['user_id'];
+$diretorioBase = "uploads/"; // Diretório base para os uploads
+$diretorioUsuario = $diretorioBase . $usernome_completo . "/"; // Diretório específico do usuário
+
+// Verifica se a pasta do usuário existe, caso contrário, cria
+if (!is_dir($diretorioUsuario)) {
+    mkdir($diretorioUsuario, 0777, true); // Cria a pasta com permissões adequadas
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['arquivo'])) {
+    $arquivoDestino = $diretorioUsuario . basename($_FILES['arquivo']['name']);
+    if (move_uploaded_file($_FILES['arquivo']['tmp_name'], $arquivoDestino)) {
+        echo "<p style='color: green;'>Arquivo enviado com sucesso!</p>";
+    } else {
+        echo "<p style='color: red;'>Erro ao enviar o arquivo. Verifique as permissões da pasta.</p>";
+    }
+}
+
+// Remove um arquivo do usuário quando solicitado
+if (isset($_GET['remover'])) {
+    $arquivoParaRemover = $diretorioUsuario . basename($_GET['remover']);
+    if (file_exists($arquivoParaRemover)) {
+        unlink($arquivoParaRemover);
+        echo "<p style='color: green;'>Arquivo removido com sucesso!</p>";
+    } else {
+        echo "<p style='color: red;'>Erro: O arquivo não existe.</p>";
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -41,17 +82,17 @@
     </style>
 </head>
 <body>
+    <!-- Cabeçalho -->
+    <div class="header">
+        <h1>Plataforma - Enviar Arquivos</h1>
+        <nav>
+            <a href="dashboard.php">Início</a>
+            <a href="aulas.php">Assistir Aulas</a>
+            <a href="enviar_arquivos.php">Enviar Arquivos</a>
+            <a href="logout.php">Sair</a>
+        </nav>
+    </div>
 
-<!-- Cabeçalho -->
-<div class="header">
-    <h1>Plataforma - Enviar Arquivos</h1>
-    <nav>
-        <a href="dashboard.php">Início</a>
-        <a href="aulas.php">Assistir Aulas</a>
-        <a href="enviar_arquivos.php">Enviar Arquivos</a>
-        <a href="logout.php">Sair</a>
-    </nav>
-</div>
     <h1>Enviar Atividades</h1>
     <form action="" method="POST" enctype="multipart/form-data">
         <label for="arquivo">Escolha o arquivo:</label>
@@ -60,52 +101,23 @@
     </form>
 
     <?php
-    $diretorioDestino = "uploads/"; // Pasta para salvar os arquivos
-
-    // Verifica se a pasta 'uploads' existe
-    if (!is_dir($diretorioDestino)) {
-        mkdir($diretorioDestino, 0777, true); // Cria a pasta com permissão de gravação
-    }
-
-    // Processa o upload do arquivo
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['arquivo'])) {
-        $arquivoDestino = $diretorioDestino . basename($_FILES['arquivo']['name']);
-        if (move_uploaded_file($_FILES['arquivo']['tmp_name'], $arquivoDestino)) {
-            echo "<p style='color: green;'>Arquivo enviado com sucesso!</p>";
-        } else {
-            echo "<p style='color: red;'>Erro ao enviar o arquivo. Verifique as permissões da pasta 'uploads'.</p>";
-        }
-    }
-
-    // Remove um arquivo quando solicitado
-    if (isset($_GET['remover'])) {
-        $arquivoParaRemover = $diretorioDestino . basename($_GET['remover']);
-        if (file_exists($arquivoParaRemover)) {
-            unlink($arquivoParaRemover);
-            echo "<p style='color: green;'>Arquivo removido com sucesso!</p>";
-        } else {
-            echo "<p style='color: red;'>Erro: O arquivo não existe.</p>";
-        }
-    }
-
-    // Lista os arquivos na pasta 'uploads'
-    $arquivos = scandir($diretorioDestino);
+    // Lista os arquivos do diretório do usuário
+    $arquivos = scandir($diretorioUsuario);
     if (count($arquivos) > 2) { // Exclui '.' e '..'
-        echo "<h3>Arquivos Enviados:</h3>";
+        echo "<h3>Seus Arquivos Enviados:</h3>";
         echo "<ul>";
         foreach ($arquivos as $arquivo) {
             if ($arquivo != "." && $arquivo != "..") {
                 echo "<li>";
-                echo "<a href='$diretorioDestino$arquivo' target='_blank'>$arquivo</a>";
-                echo "<a href='?remover=$arquivo' style='color: red;'>[Remover]</a>";
+                echo "<a href='$diretorioUsuario$arquivo' target='_blank'>$arquivo</a>";
+                echo " <a href='?remover=$arquivo' style='color: red;'>[Remover]</a>";
                 echo "</li>";
             }
         }
         echo "</ul>";
     } else {
-        echo "<p>Nenhum arquivo enviado até o momento.</p>";
+        echo "<p>Você ainda não enviou nenhum arquivo.</p>";
     }
     ?>
 </body>
 </html>
-

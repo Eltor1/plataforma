@@ -1,3 +1,32 @@
+<?php
+session_start();
+include('db.php'); // Inclua a conexão com o banco de dados
+
+// Verifica se o usuário está logado
+if (!isset($_SESSION['user_id'])) {
+    header("Location: index.php");
+    exit();
+}
+
+$userId = $_SESSION['user_id'];
+
+// Busca o nome completo no banco de dados
+$query = $conn->prepare("SELECT nome_completo FROM usuarios WHERE id = ?");
+$query->bind_param("i", $userId);
+$query->execute();
+$result = $query->get_result();
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $nomeUsuario = $row['nome_completo'];
+    $_SESSION['nome_completo'] = $nomeUsuario; // Opcional: salvar na sessão para futuras páginas
+} else {
+    $nomeUsuario = 'Usuário'; // Nome padrão caso não seja encontrado
+}
+
+$query->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +45,7 @@
                 <li><a href="logout.php">Sair</a></li>
             </ul>
         </nav>
-        <h1>Bem-vindo à Plataforma</h1>
+        <h1>Bem-vindo(a), <?php echo htmlspecialchars($nomeUsuario); ?>!</h1>
         <p>Aqui você encontrará explicações sobre como usar o site.</p>
     </header>
 
