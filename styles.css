@@ -57,31 +57,43 @@ nav {
     background: #0056b3;
 }
 
-/* Vídeos */
+/* Container de vídeos */
 .video-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    justify-items: center; /* Centraliza os itens da grid */
+    display: flex;              /* Flexbox para controlar o layout */
+    flex-direction: column;     /* Garantir que os vídeos fiquem um embaixo do outro */
+    align-items: center;        /* Centralizar os vídeos dentro do container */
+    gap: 20px;                  /* Espaço entre os vídeos */
+    margin: 0 auto;             /* Centraliza o container */
+    width: 90%;                 /* Largura do container */
+    max-width: 800px;           /* Largura máxima do container */
+    padding: 20px;              /* Espaçamento interno */
 }
 
+/* Estilo para cada vídeo */
 .video {
     background: white;
-    padding: 15px;
+    padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 400px; /* Limita a largura de cada vídeo */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Centraliza o conteúdo dentro de cada vídeo */
+    width: 100%;        /* Isso garante que o vídeo ocupe toda a largura do container */
 }
 
+/* Estilo para o título de cada vídeo */
+.video h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Estilos para o vídeo */
 video {
-    width: 100%;
-    border-radius: 8px;
-    margin-top: 10px;
+    width: 100%;         /* O vídeo vai ocupar 100% da largura do container */
+    height: auto;
+    display: block;      /* Faz o vídeo se comportar como bloco */
+    margin-left: auto;   /* Centraliza o vídeo */
+    margin-right: auto;  /* Centraliza o vídeo */
 }
-
 /* Rodapé */
 footer {
     text-align: center;
@@ -97,8 +109,8 @@ footer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px; /* Espaço entre as caixas */
-    padding: 20px;
+    gap: 0px; /* Espaço entre as caixas */
+    padding: 0px;
 }
 
 .curso {

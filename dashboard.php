@@ -50,31 +50,32 @@ $query->close();
     </header>
 
     <main>
-        <section class="video-container">
-            <h2>Como Funciona a Plataforma</h2>
-            <div class="video">
-                <h3>1. Como Funciona a Plataforma</h3>
-                <video controls>
-                    <source src="videos/como_funciona.mp4" type="video/mp4">
-                    Seu navegador não suporta o elemento de vídeo.
-                </video>
-            </div>
-            <div class="video">
-                <h3>2. Como Enviar Arquivos</h3>
-                <video controls>
-                    <source src="videos/enviar_arquivos.mp4" type="video/mp4">
-                    Seu navegador não suporta o elemento de vídeo.
-                </video>
-            </div>
-            <div class="video">
-                <h3>3. Aula Inaugural: Como Funciona um Computador</h3>
-                <video controls>
-                    <source src="videos/funciona_computador.mp4" type="video/mp4">
-                    Seu navegador não suporta o elemento de vídeo.
-                </video>
-            </div>
-        </section>
+    <h1>Como Funciona a Plataforma</h2>   
+    <section class="video-container">
+    <div class="video">
+        <h3>1. Como Funciona a Plataforma</h3>
+        <video controls>
+            <source src="videos/como_funciona.mp4" type="video/mp4">
+            Seu navegador não suporta o elemento de vídeo.
+        </video>
+    </div>
+    <div class="video">
+        <h3>2. Como Enviar Arquivos</h3>
+        <video controls>
+            <source src="videos/enviar_arquivos.mp4" type="video/mp4">
+            Seu navegador não suporta o elemento de vídeo.
+        </video>
+    </div>
+    <div class="video">
+        <h3>3. Aula Inaugural: Como Funciona um Computador</h3>
+        <video controls>
+            <source src="videos/funciona_computador.mp4" type="video/mp4">
+            Seu navegador não suporta o elemento de vídeo.
+        </video>
+    </div>
+</section>
     </main>
+
 
     <footer>
         <p>&copy; 2024 - Plataforma Educacional</p>

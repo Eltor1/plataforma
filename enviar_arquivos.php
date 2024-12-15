@@ -8,9 +8,27 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$usernome_completo = $_SESSION['user_id'];
-$diretorioBase = "uploads/"; // Diretório base para os uploads
-$diretorioUsuario = $diretorioBase . $usernome_completo . "/"; // Diretório específico do usuário
+// Obtém o ID do usuário logado
+$userId = $_SESSION['user_id'];
+
+// Recupera o nome completo do usuário no banco de dados
+$query = $conn->prepare("SELECT nome_completo FROM usuarios WHERE id = ?");
+$query->bind_param("i", $userId);
+$query->execute();
+$result = $query->get_result();
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $usernome_completo = $row['nome_completo']; // Atribui o nome completo
+} else {
+    $usernome_completo = 'UsuarioDesconhecido'; // Nome padrão se não encontrado
+}
+
+$query->close();
+
+// Diretório base e diretório específico do usuário (com nome completo)
+$diretorioBase = "uploads/";
+$diretorioUsuario = $diretorioBase . $usernome_completo . "/"; // Usando nome completo
 
 // Verifica se a pasta do usuário existe, caso contrário, cria
 if (!is_dir($diretorioUsuario)) {
@@ -20,7 +38,7 @@ if (!is_dir($diretorioUsuario)) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['arquivo'])) {
     $arquivoDestino = $diretorioUsuario . basename($_FILES['arquivo']['name']);
     if (move_uploaded_file($_FILES['arquivo']['tmp_name'], $arquivoDestino)) {
-        echo "<p style='color: green;'>Arquivo enviado com sucesso!</p>";
+        echo "<h2 style='color: green;'>Arquivo enviado com sucesso!</h2>";
     } else {
         echo "<p style='color: red;'>Erro ao enviar o arquivo. Verifique as permissões da pasta.</p>";
     }
@@ -88,7 +106,6 @@ if (isset($_GET['remover'])) {
         <nav>
             <a href="dashboard.php">Início</a>
             <a href="aulas.php">Assistir Aulas</a>
-            <a href="enviar_arquivos.php">Enviar Arquivos</a>
             <a href="logout.php">Sair</a>
         </nav>
     </div>
