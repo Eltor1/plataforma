@@ -58,32 +58,52 @@ nav {
 }
 
 /* Container de vídeos */
-.video-container {
-    display: flex;              /* Flexbox para controlar o layout */
-    flex-direction: column;     /* Garantir que os vídeos fiquem um embaixo do outro */
-    align-items: center;        /* Centralizar os vídeos dentro do container */
-    gap: 20px;                  /* Espaço entre os vídeos */
-    margin: 0 auto;             /* Centraliza o container */
-    width: 90%;                 /* Largura do container */
-    max-width: 800px;           /* Largura máxima do container */
-    padding: 20px;              /* Espaçamento interno */
+.iframe-container {
+    display: flex;              /* Flexbox para centralização */
+    justify-content: center;    /* Centraliza horizontalmente */
+    align-items: center;        /* Ajusta alinhamento vertical */
+    width: 100%;                /* Ocupa toda a largura */
+    max-width: 800px;           /* Largura máxima para vídeos */
+    aspect-ratio: 16 / 9;       /* Proporção padrão dos vídeos */
+    margin: 0 auto;        /* Centraliza sem margens extras */
+    padding: 0;            /* Remove preenchimentos extras */
+    background-color: #000;     /* Fundo preto antes do carregamento */
+    border-radius: 8px;         /* Bordas arredondadas */
+    overflow: hidden;           /* Evita vazamento do conteúdo */
 }
 
 /* Estilo para cada vídeo */
 .video {
+    display: flex;              /* Ativa o Flexbox */
+    flex-direction: column;     /* Organiza os itens verticalmente */
+    align-items: center;        /* Centraliza horizontalmente */
+    justify-content: center;    /* Centraliza verticalmente */
     background: white;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center; /* Centraliza o conteúdo dentro de cada vídeo */
-    width: 100%;        /* Isso garante que o vídeo ocupe toda a largura do container */
+    margin: 20px 0;             /* Espaçamento entre vídeos */
+    width: auto;                /* Garante que ocupe toda a largura do container */
+    text-align: 0;         /* Centraliza o texto */
+    overflow: hidden;      /* Esconde qualquer conteúdo excedente */
 }
 
 /* Estilo para o título de cada vídeo */
 .video h3 {
-    margin-bottom: 10px;
+    margin-bottom: 10px;        /* Espaço entre o título e o vídeo */
     color: #333;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    overflow: hidden;      /* Esconde qualquer conteúdo excedente */
+}
+
+iframe {
+    width: 100%;       /* Garante que o vídeo ocupe toda a largura do container */
+    height: 100%;      /* Mantém a altura definida pelo aspect-ratio */
+    border: none;      /* Remove bordas */
+    display: block;    /* Evita espaços extras */
 }
 
 /* Estilos para o vídeo */
@@ -94,6 +114,7 @@ video {
     margin-left: auto;   /* Centraliza o vídeo */
     margin-right: auto;  /* Centraliza o vídeo */
 }
+
 /* Rodapé */
 footer {
     text-align: center;
@@ -104,6 +125,7 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
 /* Estilos gerais do dashboard */
 .dashboard {
     display: flex;
@@ -146,6 +168,8 @@ footer {
 .curso a:hover {
     text-decoration: underline;
 }
+
+/* Modal de recuperação de senha */
 #forgot-password-modal {
     position: fixed;
     top: 50%;
@@ -177,4 +201,17 @@ footer {
     padding: 10px;
     font-size: 16px;
     cursor: pointer;
+}
+/* Remove sombras no corpo e no container principal */
+body, html {
+    box-shadow: none;        /* Remove sombras */
+    margin: 0;               /* Garante que não haja margens extras */
+    padding: 0;              /* Remove preenchimentos */
+    overflow-x: hidden;      /* Remove barras de rolagem horizontais */
+}
+
+/* Remove sombras e bordas em containers */
+* {
+    box-shadow: none !important; /* Remove qualquer sombra forçada */
+    outline: none;               /* Remove contornos */
 }

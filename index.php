@@ -99,8 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .logo {
-            width: 150px;
             margin-bottom: 20px;
+            width: 100%;
         }
 
         h1 {
@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="container">
         <!-- Adicione aqui a logo da empresa -->
-        <img src="logo.png" alt="Logo da Empresa" class="logo"> <!-- Substitua 'logo.png' pelo caminho correto -->
+        <img src="images/logo.jpg" alt="Logo da Empresa" class="logo"> <!-- Substitua 'logo.png' pelo caminho correto -->
 
         <h1>Login</h1>
         <?php if (!empty($error)) echo "<p style='color: red;'>$error</p>"; ?>
