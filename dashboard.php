@@ -19,7 +19,7 @@ $result = $query->get_result();
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $nomeUsuario = $row['nome_completo'];
-    $_SESSION['nome_completo'] = $nomeUsuario; // Opcional: salvar na sessão para futuras páginas
+    $_SESSION['nome_completo'] = $nomeUsuario; // Opcional: salvar na sessão
 } else {
     $nomeUsuario = 'Usuário'; // Nome padrão caso não seja encontrado
 }
@@ -69,13 +69,18 @@ $query->close();
             margin: 15px 0;
             text-align: center;
         }
-        iframe {
+        video {
             width: 560px;
             height: 315px;
             max-width: 100%;
-            border: none;
         }
     </style>
+        <script>
+        // Bloqueia o menu de contexto (clique com botão direito) em todo o site
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+        });
+    </script>
 </head>
 <body>
     <!-- Cabeçalho -->
@@ -92,40 +97,37 @@ $query->close();
         <p>Aqui você encontrará explicações sobre como usar o site.</p>
     </header>
 
+
     <!-- Conteúdo Principal -->
     <main>
         <h1>Como Funciona a Plataforma</h1>
         <section class="video-container">
-            <!-- Vídeos do YouTube com configurações de controles básicos -->
+            <!-- Vídeos locais -->
             <div class="video">
                 <h3>1. Como Funciona a Plataforma</h3>
-                <iframe 
-                    src="https://www.youtube.com/embed/vJpijerkHwc?controls=1&modestbranding=1&rel=0" 
-                    title="Como funciona a Plataforma"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
+                <video controls controlslist="nodownload" oncontextmenu="return false;">
+                    <source src="videos/como-funciona.mp4" type="video/mp4">
+                    Seu navegador não suporta vídeos HTML5.
+                </video>
             </div>
             <div class="video">
                 <h3>2. Como Enviar Arquivos</h3>
-                <iframe 
-                    src="https://www.youtube.com/embed/vJpijerkHwc?controls=1&modestbranding=1&rel=0" 
-                    title="Como Enviar Arquivos"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
+                <video controls controlslist="nodownload" oncontextmenu="return false;">
+                    <source src="videos/como-enviar-arquivos.mp4" type="video/mp4">
+                    Seu navegador não suporta vídeos HTML5.
+                </video>
             </div>
             <div class="video">
                 <h3>3. Aula Inaugural: Como Funciona um Computador</h3>
-                <iframe 
-                    src="https://www.youtube.com/embed/vJpijerkHwc?controls=1&modestbranding=1&rel=0" 
-                    title="Como Funciona um Computador"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
+                <video controls controlslist="nodownload" oncontextmenu="return false;"> 
+                    <source src="videos/como-funciona-computador.mp4" type="video/mp4">
+                    Seu navegador não suporta vídeos HTML5.
+                </video>
             </div>
         </section>
     </main>
+
+
 
     <!-- Rodapé -->
     <footer>
