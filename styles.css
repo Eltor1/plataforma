@@ -215,3 +215,53 @@ body, html {
     box-shadow: none !important; /* Remove qualquer sombra forçada */
     outline: none;               /* Remove contornos */
 }
+
+/* Estilo da mensagem personalizada */
+#exit-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#exit-message.hidden {
+    display: none; /* Esconde a mensagem */
+}
+
+.exit-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 300px;
+}
+
+.exit-box p {
+    margin: 0 0 20px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.exit-box button,
+.exit-box a {
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.exit-box button:hover,
+.exit-box a:hover {
+    background-color: #0056b3;
+}
